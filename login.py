@@ -27,16 +27,16 @@ l.grid()
 # '''create a login frame'''
 
 #authentication
-def check():
-    #database
-    conn=sqlite3.connect('python.db')
-    c=conn.cursor()
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS auth(user text,pwd text)"""
-    )
-    c.execute('SELECT user FROM auth;')
-    nam=c.fetchone()
-    print(nam)
+# def check():
+#     # #database
+    # conn=sqlite3.connect('python.db')
+    # c=conn.cursor()
+    # c.execute(
+    #     """CREATE TABLE IF NOT EXISTS auth(user text,pwd text)"""
+    # )
+    # c.execute('SELECT user FROM auth;')
+    # nam=c.fetchone()
+    # print(nam) #needs work not complete
 #frame
 frame=Frame(root,bd=5)
 #place 75% x and 50% y of display
@@ -48,7 +48,7 @@ name=Label(frame, text="Username",fg=col,font=('Times new roman',15))
 user=Entry(frame,font=('Times new roman',15))
 Password=Label(frame, text="Passsword",fg=col,font=('Times new roman',15))
 pwd=Entry(frame,font=('Times new roman',15))
-submit=Button(frame,text='LOGIN',command=check,fg=col,font=('Times new roman',15))
+# submit=Button(frame,text='LOGIN',command=check,fg=col,font=('Times new roman',15))
 #display login
 Login.grid(row=0,column=0,columnspan=2,pady=20)
 name.grid(row=1,column=0,pady=20)
@@ -56,7 +56,7 @@ user.grid(row=1,column=1,pady=20,padx=10)
 Password.grid(row=2,column=0,pady=20)
 pwd.grid(row=2,column=1,pady=20,padx=10)
 
-submit.grid(row=25,column=1,columnspan=2,pady=20)
+# submit.grid(row=25,column=1,columnspan=2,pady=20)
 
 
 
