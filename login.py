@@ -45,9 +45,31 @@ frame.place(x=350,y=200)
 col='#000000'
 Login=Label(frame, text="LOGIN",fg=col,font=('Times new roman',30))
 name=Label(frame, text="Username",fg=col,font=('Times new roman',15))
-user=Entry(frame,font=('Times new roman',15))
+user=Entry(frame,font=('Times new roman',15),fg="gray")
+user.insert(0,"Enter your Username.")#initial placeholder
+def add(event):#If event is not done bring back the place holder.
+    if user.get()=="":
+        user.insert(0,"Enter your Username.")
+        user.config(fg="gray")
+def sub(event):
+    if user.get()=="Enter your Username.":
+        user.delete(0,END)#Clears text
+        user.config(fg="black")
+user.bind("<FocusIn>",sub)
+user.bind("<FocusOut>",add)
 Password=Label(frame, text="Passsword",fg=col,font=('Times new roman',15))
-pwd=Entry(frame,font=('Times new roman',15))
+pwd=Entry(frame,font=('Times new roman',15),fg="gray")
+pwd.insert(0,"Enter your Password.")# initial placeholder
+def addp(event):#If event is not done bring back the place holder.
+    if pwd.get()=="":
+        pwd.insert(0,"Enter your Password.")
+        pwd.config(fg="gray")
+def subp(event):#If some event is done remove the place holder
+    if pwd.get()=="Enter your Password.":
+        pwd.delete(0,END)#Clears text
+        pwd.config(fg="black")
+pwd.bind("<FocusIn>",subp)
+pwd.bind("<FocusOut>",addp)
 # submit=Button(frame,text='LOGIN',command=check,fg=col,font=('Times new roman',15))
 #display login
 Login.grid(row=0,column=0,columnspan=2,pady=20)
