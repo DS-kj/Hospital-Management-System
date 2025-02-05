@@ -12,10 +12,10 @@ root = Tk()
 root.geometry('700x800+400+0')
 #window can't be changed in size (neither width, nor height)
 root.resizable(0,0)
-root.iconbitmap(r"C:\Users\ASUS\Desktop\PYTHON PROJECT\Code Freaks\icon.ico")
+root.iconbitmap("icon.ico")
 # '''putting background images'''
 
-a=Image.open(r'C:\Users\ASUS\Desktop\PYTHON PROJECT\Code Freaks\log1.png')
+a=Image.open('log1.png')
 #resize
 b=a.resize((700,800))
 #need to use this to turn img into tkinter usable format
