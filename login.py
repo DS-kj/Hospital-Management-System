@@ -5,6 +5,8 @@ from PIL import Image,ImageTk
 from tkinter import messagebox
 import sqlite3
 import subprocess
+
+
 # '''create main window root'''
 
 root = Tk()
@@ -27,16 +29,38 @@ l.grid()
 # '''create a login frame'''
 
 #authentication
-# def check():
-#     # #database
-    # conn=sqlite3.connect('python.db')
-    # c=conn.cursor()
-    # c.execute(
-    #     """CREATE TABLE IF NOT EXISTS auth(user text,pwd text)"""
-    # )
-    # c.execute('SELECT user FROM auth;')
-    # nam=c.fetchone()
-    # print(nam) #needs work not complete
+def check():
+    conn = sqlite3.connect('hospital.db')
+
+    # Create a cursor object to interact with the database
+    c = conn.cursor()
+
+    # # # Create a table named 'user' with fields 'user' and 'pwd'
+    # c.execute('''
+    # CREATE TABLE IF NOT EXISTS user (
+    #     user TEXT NOT NULL,
+    #     pwd TEXT NOT NULL
+    # );
+    # ''')
+
+    # # Insert a record into the 'user' table
+    # c.execute('''
+    # INSERT INTO user (user, pwd) VALUES (?, ?);
+    # ''', ('receptionist', 'ilovehospital'))
+
+    #get user name and check if it is valid
+    c.execute('SELECT *, oid FROM user')
+    result=c.fetchall()
+    for i in result:
+        manche=i[0]
+        chabi=i[1]
+    if manche==user.get() and chabi==pwd.get():
+        messagebox.showinfo('Sucess!!!!',f'WELCOME {user.get()},you have logged in sucessfully')
+    # Commit the changes
+    conn.commit()
+
+    # Close the connection
+    conn.close()
 #frame
 frame=Frame(root,bd=5)
 #place 75% x and 50% y of display
@@ -58,7 +82,7 @@ def sub(event):
 user.bind("<FocusIn>",sub)#focusin is a event and sub is function
 user.bind("<FocusOut>",add)# "   "  "  "
 Password=Label(frame, text="Passsword",fg=col,font=('Times new roman',15))
-pwd=Entry(frame,font=('Times new roman',15),fg="gray")
+pwd=Entry(frame,show='*',font=('Times new roman',15),fg="gray")
 pwd.insert(0,"Enter your Password.")# initial placeholder
 def reset():
     root.quit()
@@ -80,7 +104,7 @@ def login():
         root.quit()
         afterlogin()
 
-submit=Button(frame,text='Login',command=login,fg=col,font=('Times new roman',15))
+submit=Button(frame,text='Login',command=check,fg=col,font=('Times new roman',15))
 
 btn=Button(frame,text='Reset',command=reset,fg=col,font=('Times new roman',15),width=8,height=7)
 #display login
