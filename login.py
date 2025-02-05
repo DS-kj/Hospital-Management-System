@@ -62,7 +62,7 @@ pwd=Entry(frame,font=('Times new roman',15),fg="gray")
 pwd.insert(0,"Enter your Password.")# initial placeholder
 def reset():
     root.quit()
-    subprocess.Popen(["python","after_login.py"])
+    subprocess.Popen(["python","reset.py"])
 def addp(event):#If event is not done bring back the place holder.
     if pwd.get()=="":
         pwd.insert(0,"Enter your Password.")
