@@ -4,6 +4,7 @@ from tkinter import *
 from PIL import Image,ImageTk
 from tkinter import messagebox
 import sqlite3
+import subprocess
 # '''create main window root'''
 
 root = Tk()
@@ -11,10 +12,10 @@ root = Tk()
 root.geometry('700x800+400+0')
 #window can't be changed in size (neither width, nor height)
 root.resizable(0,0)
-root.iconbitmap("icon.ico")
+root.iconbitmap(r"C:\Users\ASUS\Desktop\PYTHON PROJECT\Code Freaks\icon.ico")
 # '''putting background images'''
 
-a=Image.open(r'log1.png')
+a=Image.open(r'C:\Users\ASUS\Desktop\PYTHON PROJECT\Code Freaks\log1.png')
 #resize
 b=a.resize((700,800))
 #need to use this to turn img into tkinter usable format
@@ -42,7 +43,7 @@ frame=Frame(root,bd=5)
 frame.place(x=350,y=200)
 # login
 col='#000000'
-Login=Label(frame, text="LOGIN",fg=col,font=('Times new roman',30))
+Login=Label(frame, text="Sign in",fg=col,font=('Times new roman',30))
 name=Label(frame, text="Username",fg=col,font=('Times new roman',15))
 user=Entry(frame,font=('Times new roman',15),fg="gray")
 user.insert(0,"Enter your Username.")#initial placeholder
@@ -54,11 +55,13 @@ def sub(event):
     if user.get()=="Enter your Username.":
         user.delete(0,END)#Clears text
         user.config(fg="black")
-user.bind("<FocusIn>",sub)
-user.bind("<FocusOut>",add)
+user.bind("<FocusIn>",sub)#focusin is a event and sub is function
+user.bind("<FocusOut>",add)# "   "  "  "
 Password=Label(frame, text="Passsword",fg=col,font=('Times new roman',15))
 pwd=Entry(frame,font=('Times new roman',15),fg="gray")
 pwd.insert(0,"Enter your Password.")# initial placeholder
+def reset():
+    pass
 def addp(event):#If event is not done bring back the place holder.
     if pwd.get()=="":
         pwd.insert(0,"Enter your Password.")
@@ -67,18 +70,28 @@ def subp(event):#If some event is done remove the place holder
     if pwd.get()=="Enter your Password.":
         pwd.delete(0,END)#Clears text
         pwd.config(fg="black")
+btn=Button
 pwd.bind("<FocusIn>",subp)
 pwd.bind("<FocusOut>",addp)
-# submit=Button(frame,text='LOGIN',command=check,fg=col,font=('Times new roman',15))
+def afterlogin():
+    subprocess.Popen(["python",r"C:\Users\ASUS\Desktop\PYTHON PROJECT\Code Freaks\after_login.py"])
+def login():
+    if user.get()=='xyz' and pwd.get()=='xyz':
+        afterlogin()
+
+submit=Button(frame,text='Login',command=login,fg=col,font=('Times new roman',15))
+
+btn=Button(frame,text='Reset',command=reset,fg=col,font=('Times new roman',15),width=8,height=7)
 #display login
-Login.grid(row=0,column=0,columnspan=2,pady=20)
+Login.grid(row=0,column=0,columnspan=1,pady=20)
+btn.grid(row=0,column=0,columnspan=1)
 name.grid(row=1,column=0,pady=20)
 user.grid(row=1,column=1,pady=20,padx=10)
 Password.grid(row=2,column=0,pady=20)
 pwd.grid(row=2,column=1,pady=20,padx=10)
-
-# submit.grid(row=25,column=1,columnspan=2,pady=20)
-
+submit.grid(row=25,column=1,columnspan=2,pady=20)
+btn.grid(row=25,column=0)
+btn.config(fg='blue',width=5,height=1)
 
 
 
