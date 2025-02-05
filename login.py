@@ -61,7 +61,8 @@ Password=Label(frame, text="Passsword",fg=col,font=('Times new roman',15))
 pwd=Entry(frame,font=('Times new roman',15),fg="gray")
 pwd.insert(0,"Enter your Password.")# initial placeholder
 def reset():
-    pass
+    root.quit()
+    subprocess.Popen(["python","after_login.py"])
 def addp(event):#If event is not done bring back the place holder.
     if pwd.get()=="":
         pwd.insert(0,"Enter your Password.")
@@ -70,13 +71,13 @@ def subp(event):#If some event is done remove the place holder
     if pwd.get()=="Enter your Password.":
         pwd.delete(0,END)#Clears text
         pwd.config(fg="black")
-btn=Button
 pwd.bind("<FocusIn>",subp)
 pwd.bind("<FocusOut>",addp)
 def afterlogin():
-    subprocess.Popen(["python",r"C:\Users\ASUS\Desktop\PYTHON PROJECT\Code Freaks\after_login.py"])
+    subprocess.Popen(["python","after_login.py"])
 def login():
     if user.get()=='xyz' and pwd.get()=='xyz':
+        root.quit()
         afterlogin()
 
 submit=Button(frame,text='Login',command=login,fg=col,font=('Times new roman',15))
