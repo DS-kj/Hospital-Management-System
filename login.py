@@ -24,6 +24,39 @@ c=ImageTk.PhotoImage(b)
 l=Label(image=c) 
 l.grid()
 
+def add(event):#If event is not done bring back the place holder.
+    if user.get()=="":
+        user.insert(0,"Enter your Username.")
+        user.config(fg="gray")
+def sub(event):
+    if user.get()=="Enter your Username.":
+        user.delete(0,END)#Clears text
+        user.config(fg="black")
+def reset():
+    root.quit()
+    subprocess.Popen(["python","reset.py"])
+def addp(event):#If event is not done bring back the place holder.
+    if pwd.get()=="":
+        pwd.insert(0,"Enter your Password.")
+        pwd.config(fg="gray")
+def subp(event):#If some event is done remove the place holder
+    if pwd.get()=="Enter your Password.":
+        pwd.delete(0,END)#Clears text
+        pwd.config(fg="black")
+def addpp(event):#If event is not done bring back the place holder.
+    if pwd.get()=="":
+        pwd.insert(0,"Enter your new Password.")
+        pwd.config(fg="gray")
+def subpp(event):#If some event is done remove the place holder
+    if pwd.get()=="Enter your new Password.":
+        pwd.delete(0,END)#Clears text
+        pwd.config(fg="black")
+def afterlogin():
+    subprocess.Popen(["python","after_login.py"])
+def login():
+    if user.get()=='xyz' and pwd.get()=='xyz':
+        root.quit()
+        afterlogin()
 # '''create a login frame'''
 
 #authentication
@@ -47,38 +80,13 @@ Login=Label(frame, text="Sign in",fg=col,font=('Times new roman',30))
 name=Label(frame, text="Username",fg=col,font=('Times new roman',15))
 user=Entry(frame,font=('Times new roman',15),fg="gray")
 user.insert(0,"Enter your Username.")#initial placeholder
-def add(event):#If event is not done bring back the place holder.
-    if user.get()=="":
-        user.insert(0,"Enter your Username.")
-        user.config(fg="gray")
-def sub(event):
-    if user.get()=="Enter your Username.":
-        user.delete(0,END)#Clears text
-        user.config(fg="black")
 user.bind("<FocusIn>",sub)#focusin is a event and sub is function
 user.bind("<FocusOut>",add)# "   "  "  "
 Password=Label(frame, text="Passsword",fg=col,font=('Times new roman',15))
 pwd=Entry(frame,font=('Times new roman',15),fg="gray")
 pwd.insert(0,"Enter your Password.")# initial placeholder
-def reset():
-    root.quit()
-    subprocess.Popen(["python","reset.py"])
-def addp(event):#If event is not done bring back the place holder.
-    if pwd.get()=="":
-        pwd.insert(0,"Enter your Password.")
-        pwd.config(fg="gray")
-def subp(event):#If some event is done remove the place holder
-    if pwd.get()=="Enter your Password.":
-        pwd.delete(0,END)#Clears text
-        pwd.config(fg="black")
 pwd.bind("<FocusIn>",subp)
 pwd.bind("<FocusOut>",addp)
-def afterlogin():
-    subprocess.Popen(["python","after_login.py"])
-def login():
-    if user.get()=='xyz' and pwd.get()=='xyz':
-        root.quit()
-        afterlogin()
 
 submit=Button(frame,text='Login',command=login,fg=col,font=('Times new roman',15))
 
