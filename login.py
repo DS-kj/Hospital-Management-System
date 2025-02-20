@@ -6,7 +6,6 @@ from tkinter import messagebox
 import sqlite3
 import subprocess
 
-
 # '''create main window root'''
 
 root = Tk()
@@ -55,10 +54,7 @@ def subpp(event):#If some event is done remove the place holder
         pwd.config(fg="black")
 def afterlogin():
     subprocess.Popen(["python","after_login.py"])
-def login():
-    if user.get()=='xyz' and pwd.get()=='xyz':
-        root.quit()
-        afterlogin()
+
 # '''create a login frame'''
 
 #authentication
@@ -89,6 +85,11 @@ def check():
         chabi=i[1]
     if manche==user.get() and chabi==pwd.get():
         messagebox.showinfo('Sucess!!!!',f'WELCOME {user.get()},you have logged in sucessfully')
+        subprocess.Popen(["python","dashbaord.py"])
+
+        root.destroy()
+    else:
+        messagebox.showerror('OOPS!!','Invalid username or password!!!')
     # Commit the changes
     conn.commit()
 
