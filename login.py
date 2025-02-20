@@ -85,9 +85,8 @@ def check():
         chabi=i[1]
     if manche==user.get() and chabi==pwd.get():
         messagebox.showinfo('Sucess!!!!',f'WELCOME {user.get()},you have logged in sucessfully')
-        subprocess.Popen(["python","dashbaord.py"])
-
-        root.destroy()
+        subprocess.Popen(["python","dashbaord.py"])#connects the 'python' code named dashbaord.py to this page
+        root.destroy()#destroy window named root
     else:
         messagebox.showerror('OOPS!!','Invalid username or password!!!')
     # Commit the changes
