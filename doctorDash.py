@@ -143,12 +143,12 @@ treeview.heading("Name", text="Name")
 treeview.heading("Specialty", text="Specialty")
 treeview.heading("Phone", text="Phone")
 
-# Add a binding to handle row selection (use <<TreeviewSelect>>)
+# Add a binding to handle row selection (use button release1 means mouse click)
 treeview.bind("<<ButtonRelease-1>>", on_select_record)
 
 #frame placement
 frame1.grid()
-# Layout management using grid
+# Layout management using ans sticky e means stick towards east side
 label_id.grid(row=0, column=1, sticky="e", padx=10, pady=10)
 entry_id.grid(row=0, column=2, padx=10, pady=10)
 
