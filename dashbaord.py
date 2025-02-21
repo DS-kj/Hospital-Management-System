@@ -12,9 +12,14 @@ c=ImageTk.PhotoImage(b)
 lbl=Label(image=c).place(x=0,y=0)
 def Doctor():
     #opens doctor dashboard 
-    subprocess.Popen(['python','doctorDash.py'])
-
-
+    process=subprocess.Popen(['python','doctorDash.py'])#refernces process to see if window is open
+    root.withdraw()#hide main dashboard root
+    while True:
+        status = process.poll()  # Check if the process has terminated
+        if status is not None:#check if window closed as when window running it returns none
+            root.deiconify() #show main dashboard
+            break
+    
 def Patience():
     roots=Toplevel()
     roots.title('Patience Page')
