@@ -6,11 +6,11 @@ import subprocess
 class default_login():
     wd=0#width
     ht=0#height
-    img=''
-    def __init__(self,a,b,path):
+    # img=''
+    def __init__(self,a,b):
         self.wd=a
         self.ht=b
-        self.img=f'{path}'
+        # self.img=f'{path}'
         # '''create main window root'''
     def create(self):
         root = Tk()
@@ -21,11 +21,18 @@ class default_login():
         root.iconbitmap("icon.ico")
         # '''putting background images'''
 
-    a=Image.open('log1.png')
-    #resize
-    b=a.resize((w_le))
-    #need to use this to turn img into tkinter usable format
-    c=ImageTk.PhotoImage(b)
-    #create label and pack it as background
-    l=Label(image=c) 
-    l.grid()
+        a=Image.open('log1.png')
+        #resize
+        b=a.resize((self.wd,self.ht))
+        #need to use this to turn img into tkinter usable format
+        c=ImageTk.PhotoImage(b)
+        #create label and pack it as background
+        l=Label(image=c) 
+        l.grid()
+        
+        mainloop()
+        return root
+window=default_login(1200,1200)
+root=window.create()
+b=Button(root,text='jdhsh')
+b.pack()

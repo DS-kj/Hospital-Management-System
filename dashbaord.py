@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image,ImageTk
+import subprocess
 root=Tk()
 root.title('Dashboard')
 root.iconbitmap('icon.ico')
@@ -10,10 +11,9 @@ b=a.resize((700,500))
 c=ImageTk.PhotoImage(b)
 lbl=Label(image=c).place(x=0,y=0)
 def Doctor():
-    roots=Toplevel()
-    roots.title('Doctor page')
-    roots.geometry('700x500')
-    roots.iconbitmap('icon.ico')
+    #opens doctor dashboard 
+    subprocess.Popen(['python','doctorDash.py'])
+
 
 def Patience():
     roots=Toplevel()

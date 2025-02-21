@@ -5,9 +5,10 @@ import sqlite3
 from PIL import Image,ImageTk
 # Create the main window
 root = Tk()
-root.title("Hospital Management System")
+root.title("Doctor's dashboard")
 root.geometry("1400x500")
-# root.resizable(0,0)
+root.iconbitmap('icon.ico')
+root.resizable(0,0)
 
 # adding image
 a=Image.open('dashy (2).jpg')
@@ -19,7 +20,7 @@ c=ImageTk.PhotoImage(b)
 l=Label(image=c) 
 l.place(relheight=1,relwidth=1)
 # Connect to SQLite Database
-conn = sqlite3.connect("doctor_records.db")
+conn = sqlite3.connect("hospital.db")
 cursor = conn.cursor()
 
 # Create table if it doesn't exist
