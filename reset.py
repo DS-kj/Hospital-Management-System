@@ -98,8 +98,25 @@ pwd=Entry(frame,font=('Times new roman',15),fg="gray")
 pwd.insert(0,"Enter your new Password.")# initial placeholder
 pwd.bind("<FocusIn>",subp)
 pwd.bind("<FocusOut>",addp)
+#change password
 def change():
-    pass
+    try:
+        user_name=user.get()
+        old_pwd=oldn.get()
+
+        conn=sqlite3.connect('hospital.db')
+        cursor=conn.cursor()
+        cursor.execute('SELECT user, pwd FROM user' )
+        rows=cursor.fetchall()
+        
+        for row in rows:
+            if row[0]==user_name and row[1]==old_pwd:
+                cursor.execute('UPDATE user SET pwd = ? where user=?',(pwd.get(),user_name))
+            else:
+                messagebox.showerror('Invalid username or password')
+    except:
+        messagebox.showerror('db error')
+        
 submit=Button(frame,text='CONFIRM',command=change,fg=col,font=('Times new roman',15))
 #display login
 Login.grid(row=0,column=0,columnspan=1,pady=20)
