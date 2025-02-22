@@ -5,9 +5,10 @@ import sqlite3
 from PIL import Image,ImageTk
 # Create the main window
 root = Tk()
-root.title("Hospital Management System")
+root.title("Patient's dashboard")
 root.geometry("1400x500")
-# root.resizable(0,0)
+root.resizable(0,0)
+root.iconbitmap('icon.ico')
 
 # adding image
 a=Image.open('dashy (2).jpg')
@@ -19,14 +20,13 @@ c=ImageTk.PhotoImage(b)
 l=Label(image=c) 
 l.place(relheight=1,relwidth=1)
 # Connect to SQLite Database
-conn = sqlite3.connect("patients_records.db")
+conn = sqlite3.connect("hospital.db")
 cursor = conn.cursor()
 
 # Create table if it doesn't exist
 cursor.execute('''CREATE TABLE IF NOT EXISTS patients (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
-                    specialty TEXT NOT NULL,
                     phone TEXT NOT NULL)''')
 
 # Function to add new record to the database
@@ -45,7 +45,7 @@ def add_record():
         else:
             messagebox.showwarning("Input Error", "Please fill all details!")
     except:
-        messagebox.showwarning("Invalid!!","Eror has occured")
+        messagebox.showwarning("Invalid!!","Error has occured")
 # Function to update a record in the database
 def update_record():
     try:
@@ -110,12 +110,12 @@ def on_select_record(event):
 
         entry_id.insert(0, record[0])
         entry_name.insert(0, record[1])
-        entry_phone.insert(0, record[3])
+        entry_phone.insert(0, record[2])
 
 #create frame1
 frame1=Frame(root)
 # Create the form widgets
-label_id = Label(frame1, text="Patients ID (for update/delete):")
+label_id = Label(frame1, text="Patients ID (for update/and add):")
 label_name = Label(frame1, text="Patients Name:")
 label_phone = Label(frame1, text="Phone Number:")
 

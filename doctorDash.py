@@ -121,7 +121,7 @@ def on_select_record(event):
 #create frame1
 frame1=Frame(root)
 # Create the form widgets
-label_id = Label(frame1, text="Doctor ID (for update/delete):")
+label_id = Label(frame1, text="Doctor ID (for update/add):")
 label_name = Label(frame1, text="Doctor Name:")
 label_specialty = Label(frame1, text="Specialty:")
 label_phone = Label(frame1, text="Phone Number:")
@@ -162,7 +162,7 @@ label_phone.grid(row=3, column=1, sticky="e", padx=10, pady=10)
 entry_phone.grid(row=3, column=2, padx=10, pady=10)
 
 button_add.grid(row=0, column=4, padx=10, pady=10, sticky="w")
-button_update.grid(row=2, column=4, padx=10, pady=10, sticky="w")
+button_update.grid(row=1, column=4, padx=10, pady=10, sticky="w")
 button_delete.grid(row=4, column=4, padx=10, pady=10, sticky="w")
 
 treeview.grid(row=0, column=3, rowspan=5, padx=10, pady=10)
