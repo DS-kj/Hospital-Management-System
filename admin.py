@@ -33,13 +33,13 @@ def admi():
         cursor = conn.cursor()
 
         # Create a table if it doesn't exist
-        cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+        cursor.execute('''CREATE TABLE IF NOT EXISTS user(
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             username TEXT NOT NULL,
                             password TEXT NOT NULL)''')
 
         # Insert the user data into the table
-        cursor.execute('''INSERT INTO users (username, password) 
+        cursor.execute('''INSERT INTO user(user,pwd) 
                           VALUES (?, ?)''', (username, password))
 
         # Commit the transaction and close the connection
