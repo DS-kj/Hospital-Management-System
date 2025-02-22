@@ -1,7 +1,6 @@
 import sqlite3
 from tkinter import *
-from tkinter import messagebox
-from tkinter import ttk
+from tkinter import messagebox, ttk
 from PIL import Image,ImageTk
 from tkcalendar import DateEntry  # Import DateEntry from tkcalendar
 

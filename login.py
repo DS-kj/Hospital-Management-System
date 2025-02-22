@@ -70,10 +70,10 @@ def check():
         conn = sqlite3.connect('hospital.db')
 
         # Create a cursor object to interact with the database
-        c = conn.cursor()
+        cursor= conn.cursor()
 
         # # # Create a table named 'user' with fields 'user' and 'pwd'
-        # c.execute('''
+        # cursor.execute('''
         # CREATE TABLE IF NOT EXISTS user (
         #     user TEXT NOT NULL,
         #     pwd TEXT NOT NULL
@@ -81,7 +81,7 @@ def check():
         # ''')
 
         # # Insert a record into the 'user' table
-        # c.execute('''
+        # cursor.execute('''
         # INSERT INTO user (user, pwd) VALUES (?, ?);
         # ''', ('receptionist', 'ilovehospital'))
 

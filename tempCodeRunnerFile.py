@@ -1,1 +1,0 @@
-root.iconbitmap('icon.ico')
