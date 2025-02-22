@@ -59,41 +59,50 @@ def afterlogin():
 
 #authentication
 def check():
-    conn = sqlite3.connect('hospital.db')
 
-    # Create a cursor object to interact with the database
-    c = conn.cursor()
-
-    # # # Create a table named 'user' with fields 'user' and 'pwd'
-    # c.execute('''
-    # CREATE TABLE IF NOT EXISTS user (
-    #     user TEXT NOT NULL,
-    #     pwd TEXT NOT NULL
-    # );
-    # ''')
-
-    # # Insert a record into the 'user' table
-    # c.execute('''
-    # INSERT INTO user (user, pwd) VALUES (?, ?);
-    # ''', ('receptionist', 'ilovehospital'))
-
-    #get user name and check if it is valid
-    c.execute('SELECT *, oid FROM user')
-    result=c.fetchall()
-    for i in result:
-        manche=i[0]
-        chabi=i[1]
-    if manche==user.get() and chabi==pwd.get():
-        messagebox.showinfo('Sucess!!!!',f'WELCOME {user.get()},you have logged in sucessfully')
-        subprocess.Popen(["python","dashbaord.py"])#connects the 'python' code named dashbaord.py to this page
-        root.destroy()#destroy window named root
+    if user.get() == "admin" and pwd.get() == "admin123":
+        messagebox.showinfo("Admin Login", "Welcome, Admin!")
+        # Run admin.py if login is correct
+        subprocess.Popen(["python", "abc.py"])
+        
+        root.destroy()  # Close the login window
     else:
-        messagebox.showerror('OOPS!!','Invalid username or password!!!')
-    # Commit the changes
-    conn.commit()
+        conn = sqlite3.connect('hospital.db')
 
-    # Close the connection
-    conn.close()
+        # Create a cursor object to interact with the database
+        c = conn.cursor()
+
+        # # # Create a table named 'user' with fields 'user' and 'pwd'
+        # c.execute('''
+        # CREATE TABLE IF NOT EXISTS user (
+        #     user TEXT NOT NULL,
+        #     pwd TEXT NOT NULL
+        # );
+        # ''')
+
+        # # Insert a record into the 'user' table
+        # c.execute('''
+        # INSERT INTO user (user, pwd) VALUES (?, ?);
+        # ''', ('receptionist', 'ilovehospital'))
+
+        #get user name and check if it is valid
+        c.execute('SELECT *, oid FROM user')
+        result=c.fetchall()
+        for i in result:
+            manche=i[0]
+            chabi=i[1]
+        if manche==user.get() and chabi==pwd.get():
+            messagebox.showinfo('Sucess!!!!',f'WELCOME {user.get()},you have logged in sucessfully')
+            subprocess.Popen(["python","dashbaord.py"])#connects the 'python' code named dashbaord.py to this page
+            root.destroy()#destroy window named root
+        else:
+            messagebox.showerror('OOPS!!','Invalid username or password!!!')
+        # Commit the changes
+        conn.commit()
+
+        # Close the connection
+        conn.close()
+
 #frame
 frame=Frame(root,bd=5)
 #place 75% x and 50% y of display
