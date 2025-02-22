@@ -2,23 +2,25 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import sqlite3
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
+
 # Create the main window
 root = Tk()
 root.title("Doctor's dashboard")
 root.geometry("1400x500")
 root.iconbitmap('icon.ico')
-root.resizable(0,0)
+root.resizable(0, 0)
 
 # adding image
-a=Image.open('dashy (2).jpg')
-#resize
-b=a.resize((1400,500))
-#need to use this to turn img into tkinter usable format
-c=ImageTk.PhotoImage(b)
-#create label and pack it as background
-l=Label(image=c) 
-l.place(relheight=1,relwidth=1)
+a = Image.open('dashy (2).jpg')
+# resize
+b = a.resize((1400, 500))
+# need to use this to turn img into tkinter usable format
+c = ImageTk.PhotoImage(b)
+# create label and pack it as background
+l = Label(image=c)
+l.place(relheight=1, relwidth=1)
+
 # Connect to SQLite Database
 conn = sqlite3.connect("hospital.db")
 cursor = conn.cursor()
@@ -32,14 +34,14 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS doctors (
 
 # Function to add new record to the database
 def add_record():
-    id=entry_id.get()
+    id = entry_id.get()
     name = entry_name.get()
-    specialty = entry_specialty.get()
+    specialty = selected_specialty.get()  # Get selected specialty from dropdown
     phone = entry_phone.get()
     try:
-        if (id and name and specialty and phone)!='':
+        if (id and name and specialty and phone) != '':
             cursor.execute("INSERT INTO doctors (id,name, specialty, phone) VALUES (?,?, ?, ?)", 
-                        (id,name, specialty, phone))
+                           (id, name, specialty, phone))
             conn.commit()
             messagebox.showinfo("Success", "Doctor record added successfully!")
             clear_entries()
@@ -47,13 +49,14 @@ def add_record():
         else:
             messagebox.showwarning("Input Error", "Please fill all fields!")
     except:
-        messagebox.showwarning("Invalid!!","Eror has occured")
+        messagebox.showwarning("Invalid!!", "Error has occurred")
+
 # Function to update a record in the database
 def update_record():
     try:
         record_id = int(entry_id.get())
         name = entry_name.get()
-        specialty = entry_specialty.get()
+        specialty = selected_specialty.get()  # Get selected specialty from dropdown
         phone = entry_phone.get()
 
         if name and specialty and phone:
@@ -86,7 +89,7 @@ def delete_record():
 def clear_entries():
     entry_id.delete(0, END)
     entry_name.delete(0, END)
-    entry_specialty.delete(0, END)
+    selected_specialty.set('')  # Clear dropdown selection
     entry_phone.delete(0, END)
 
 # Function to display all doctor records in the Treeview
@@ -110,16 +113,17 @@ def on_select_record(event):
         # Populate the entry fields with the selected record
         entry_id.delete(0, END)
         entry_name.delete(0, END)
-        entry_specialty.delete(0, END)
+        selected_specialty.set('')  # Clear dropdown selection
         entry_phone.delete(0, END)
 
         entry_id.insert(0, record[0])
         entry_name.insert(0, record[1])
-        entry_specialty.insert(0, record[2])
+        selected_specialty.set(record[2])  # Set dropdown value
         entry_phone.insert(0, record[3])
 
-#create frame1
-frame1=Frame(root)
+# Create frame1
+frame1 = Frame(root)
+
 # Create the form widgets
 label_id = Label(frame1, text="Doctor ID (for update/add):")
 label_name = Label(frame1, text="Doctor Name:")
@@ -128,8 +132,12 @@ label_phone = Label(frame1, text="Phone Number:")
 
 entry_id = Entry(frame1)
 entry_name = Entry(frame1)
-entry_specialty = Entry(frame1)
 entry_phone = Entry(frame1)
+
+# Create dropdown for specialty with the four options
+selected_specialty = StringVar()
+selected_specialty.set('')  # Default empty value
+dropdown_specialty = OptionMenu(frame1, selected_specialty, "General", "Cardio", "ENT", "Neuro")
 
 # Create buttons for adding, updating, and deleting records
 button_add = Button(root, text="Add Record", command=add_record)
@@ -146,8 +154,9 @@ treeview.heading("Phone", text="Phone")
 # Add a binding to handle row selection (use button release1 means mouse click)
 treeview.bind("<<ButtonRelease-1>>", on_select_record)
 
-#frame placement
+# Frame placement
 frame1.grid()
+
 # Layout management using ans sticky e means stick towards east side
 label_id.grid(row=0, column=1, sticky="e", padx=10, pady=10)
 entry_id.grid(row=0, column=2, padx=10, pady=10)
@@ -156,7 +165,7 @@ label_name.grid(row=1, column=1, sticky="e", padx=10, pady=10)
 entry_name.grid(row=1, column=2, padx=10, pady=10)
 
 label_specialty.grid(row=2, column=1, sticky="e", padx=10, pady=10)
-entry_specialty.grid(row=2, column=2, padx=10, pady=10)
+dropdown_specialty.grid(row=2, column=2, padx=10, pady=10)
 
 label_phone.grid(row=3, column=1, sticky="e", padx=10, pady=10)
 entry_phone.grid(row=3, column=2, padx=10, pady=10)
