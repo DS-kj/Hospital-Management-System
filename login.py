@@ -63,7 +63,7 @@ def check():
     if user.get() == "admin" and pwd.get() == "admin123":
         messagebox.showinfo("Admin Login", "Welcome, Admin!")
         # Run admin.py if login is correct
-        subprocess.Popen(["python", "abc.py"])
+        subprocess.Popen(["python", "admin.py"])
         
         root.destroy()  # Close the login window
     else:
