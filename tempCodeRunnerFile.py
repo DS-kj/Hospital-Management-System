@@ -1,1 +1,1 @@
-PM
+root.iconbitmap('icon.ico')
