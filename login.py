@@ -86,8 +86,8 @@ def check():
         # ''', ('receptionist', 'ilovehospital'))
 
         #get user name and check if it is valid
-        c.execute('SELECT *, oid FROM user')
-        result=c.fetchall()
+        cursor.execute('SELECT *, oid FROM user')
+        result=cursor.fetchall()
         for i in result:
             manche=i[0]
             chabi=i[1]
