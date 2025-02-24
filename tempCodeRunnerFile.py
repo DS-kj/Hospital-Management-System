@@ -25,15 +25,14 @@ l=Label(image=c)
 l.grid()
 #authentication
 def admi():
-    if user.get()=="Enter Username." and pwd.get()=="Enter Password.":
-        messagebox.showinfo('ERROR',"Enter Username and Password")
-    elif user.get()=="Enter Username."or user.get()=="" and pwd.get()==pwd.get():
+    if user.get()=="Enter Username.":
         messagebox.showinfo('ERRORR',"Enter Username")
-    elif user.get()==user.get() and pwd.get()=='Enter Password.' or pwd.get()=="":
+    if pwd.get()=="Enter Password.":
         messagebox.showinfo('ERRORR',"Enter Password")
     else:
         username = user.get()
         password = pwd.get()
+    
         if username and password:
             # Connect to the SQLite database
             conn = sqlite3.connect('hospital.db')
@@ -48,7 +47,7 @@ def admi():
             # Insert the user data into the table
             cursor.execute('''INSERT INTO user (user, pwd) 
                               VALUES (?, ?)''', (username, password))
-            fetch_data()
+
             # Commit the transaction and close the connection
             conn.commit()
             conn.close()
@@ -56,7 +55,7 @@ def admi():
             # Show success message
             messagebox.showinfo("Success", f"User {username} created successfully!")
 #frame
-frame=Frame(root)
+frame=Frame(root,bg='#fff5e1')
 #place 75% x and 50% y of display
 frame.place(x=20,y=140)
 # login
@@ -98,10 +97,8 @@ Password.grid(row=2,column=0,pady=20)
 pwd.grid(row=2,column=1,pady=20,padx=10)
 submit.grid(row=25,column=1,columnspan=2,pady=20)
 
-frame2 = Frame(root,bg='#beeffe')
-frame2.place(x=420,y=117)
-lab_f2=Label(frame2,text="User",fg=col,bg='#beeffe',font=('Times new roman',30))
-lab_f2.grid(row=0,column=0,columnspan=1,pady=20,padx=0)
+frame2 = Frame(root)
+frame2.place(x=420,y=180)
 
 # Function to fetch and display data
 def fetch_data():
@@ -124,7 +121,6 @@ def fetch_data():
     # Close the database connection
     conn.close()
 
-
 # Create a Treeview widget (table)
 columns = ("SN", "Username", "Password")
 tree = ttk.Treeview(frame2, columns=columns, show="headings")
@@ -135,32 +131,14 @@ for col in columns:
     tree.column(col, width=150)
 
 # Place the Treeview using grid inside frame2
-tree.grid(row=1, column=0, padx=10, pady=10)
+tree.grid(row=0, column=0, padx=10, pady=10)
 
 # Button to refresh and show data
 btn_refresh = Button(frame2, text="Refresh Data", command=fetch_data)
-btn_refresh.grid(row=2, column=0, pady=10)
+btn_refresh.grid(row=1, column=0, pady=10)
 
 # Fetch and display data when the program starts
 fetch_data()
 
-def delete_user():
-    selected=tree.selection()  # Get selected item from tree
-    if not selected:
-        messagebox.showwarning("Warning", "Please select a user to delete.")
-        return
-    user= tree.item(selected, 'values')[1]  # Get username from selected row
-
-    conn= sqlite3.connect('hospital.db')
-    cursor= conn.cursor()
-    cursor.execute("DELETE FROM user WHERE user=?", (user,))
-    conn.commit()
-    conn.close()
-
-    messagebox.showinfo("Success", f"User {user} deleted successfully!")
-    fetch_data()  # Refresh table
-
-btn_delete = Button(frame2, text="Delete User", command=delete_user, bg="red", fg="white")  # Delete button
-btn_delete.grid(row=2, column=0, pady=10, padx=5,sticky='e')
 
 root.mainloop()
