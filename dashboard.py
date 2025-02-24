@@ -18,31 +18,31 @@ lbl=Label(image=c).place(relheight=1,relwidth=1)
 def Doctor():
     #opens doctor dashboard 
     process=subprocess.Popen(['python','doctorDash.py'])#refernces process to see if window is open
-    root.withdraw()#hide main dashboard root
-    while True:
-        status = process.poll()  # Check if the process has terminated
-        if status is not None:#check if window closed as when window running it returns none
-            root.deiconify() #show main dashboard
-            break
-def Appoint():
-    #opens doctor dashboard 
-    process=subprocess.Popen(['python','appoint.py'])#refernces process to see if window is open
     root.destroy()#hide main dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
-        if status is not None:#check if window closed as when window running it returns none
-            process=subprocess.Popen(['python','dashboard.py'])#refernces process to see if window is open
+        if status is not None:# check if window closed as when window running it returns none
+            subprocess.Popen(['python','dashboard.py'])# show main dashboard
+            break
+def Appoint():
+    #opens doctor dashboard 
+    process=subprocess.Popen(['python','appoint.py'])# refernces process to see if window is open
+    root.destroy()# hide main dashboard root
+    while True:
+        status = process.poll()  # Check if the process has terminated
+        if status is not None:# check if window closed as when window running it returns none
+            subprocess.Popen(['python','dashboard.py'])# main dashboard
             fetch_appointments()
             break
 
 def Patient():
     #opens doctor dashboard 
     process=subprocess.Popen(['python','patient.py'])#refernces process to see if window is open
-    root.withdraw()#hide main dashboard root
+    root.destroy()#hide main dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
-        if status is not None:#check if window closed as when window running it returns none
-            root.deiconify() #show main dashboard
+        if status is not None:# check if window closed as when window running it returns none
+            subprocess.Popen(['python','dashboard.py']) # show main dashboard
             break
 
 
