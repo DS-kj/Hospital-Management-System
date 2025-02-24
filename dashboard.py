@@ -24,16 +24,6 @@ def Doctor():
         if status is not None:# check if window closed as when window running it returns none
             subprocess.Popen(['python','dashboard.py'])# show main dashboard
             break
-def Appoint():
-    #opens doctor dashboard 
-    process=subprocess.Popen(['python','appoint.py'])# refernces process to see if window is open
-    root.destroy()# hide main dashboard root
-    while True:
-        status = process.poll()  # Check if the process has terminated
-        if status is not None:# check if window closed as when window running it returns none
-            subprocess.Popen(['python','dashboard.py'])# main dashboard
-            fetch_appointments()
-            break
 
 def Patient():
     #opens doctor dashboard 
@@ -101,7 +91,7 @@ tree.pack(padx=10, pady=10, expand=True)
 #Main buttons
 btn=Button(root,text='Doctor',command=Doctor).place(x=270,y=220)
 btn1=Button(root,text='Patient',command=Patient).place(x=270,y=550)
-btn2=Button(frame,text='Manage appointments',command=Appoint).pack(side=TOP)
+
 
 #run window called root in loop
 root.mainloop()

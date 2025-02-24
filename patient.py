@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter import ttk
 import sqlite3
 from PIL import Image,ImageTk
+import subprocess
 # Create the main window
 root = Tk()
 root.title("Patient's dashboard")
@@ -78,7 +79,16 @@ def delete_record():
         
     else:
         messagebox.showwarning("Selection Error", "Please select a record to delete!")
-
+# Function for opening appointment
+def Appoint():
+    #opens doctor dashboard 
+    process=subprocess.Popen(['python','appoint.py'])# refernces process to see if window is open
+    root.destroy()# hide main dashboard root
+    while True:
+        status = process.poll()  # Check if the process has terminated
+        if status is not None:# check if window closed as when window running it returns none
+            subprocess.Popen(['python','dashboard.py'])# main dashboard
+            break
 # Function to clear the entry fields
 def clear_entries():
     entry_id.delete(0, END)
@@ -123,11 +133,11 @@ entry_id = Entry(frame1)
 entry_name = Entry(frame1)
 entry_phone = Entry(frame1)
 
-# Create buttons for adding, updating, and deleting records
+# Create buttons for adding, updating, and deleting records and appointment page
 button_add = Button(root, text="Add Record", command=add_record)
 button_update = Button(root, text="Update Record", command=update_record)
 button_delete = Button(root, text="Delete Record", command=delete_record)
-
+button_appointment=Button(root,text='Manage appointments',command=Appoint)
 # Treeview to display records
 treeview = ttk.Treeview(root, columns=("ID", "Name", "Phone"), show="headings", height=20)
 treeview.heading("ID", text="Patients ID")
@@ -152,6 +162,7 @@ entry_phone.grid(row=3, column=2, padx=10, pady=10)
 button_add.grid(row=0, column=4, padx=10, pady=10, sticky="w")
 button_update.grid(row=2, column=4, padx=10, pady=10, sticky="w")
 button_delete.grid(row=4, column=4, padx=10, pady=10, sticky="w")
+button_appointment.grid(row=3,column=6,padx=10,pady=10,sticky="w")
 
 treeview.grid(row=0, column=3, rowspan=5, padx=10, pady=10)
 
