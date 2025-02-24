@@ -6,6 +6,7 @@ import subprocess
 
 # Create main window root
 root = Tk()
+root.title('Hospital management System')
 root.geometry('700x800+400+0')  # Window dimensions and position
 root.resizable(0, 0)  # Window can't be resized
 root.iconbitmap("icon.ico")  # Make sure the icon file is available
