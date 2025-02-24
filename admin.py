@@ -26,28 +26,30 @@ l.grid()
 def admi():
     username = user.get()
     password = pwd.get()
-    
-    if username and password:
-        # Connect to the SQLite database
-        conn = sqlite3.connect('hospital.db')
-        cursor = conn.cursor()
+    try:
+        if username and password:
+            # Connect to the SQLite database
+            conn = sqlite3.connect('hospital.db')
+            cursor = conn.cursor()
 
-        # Create a table if it doesn't exist
-        cursor.execute('''CREATE TABLE IF NOT EXISTS user (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            username TEXT NOT NULL,
-                            password TEXT NOT NULL)''')
+            # Create a table if it doesn't exist
+            cursor.execute('''CREATE TABLE IF NOT EXISTS user (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                username TEXT NOT NULL,
+                                password TEXT NOT NULL)''')
 
-        # Insert the user data into the table
-        cursor.execute('''INSERT INTO user (user, pwd) 
-                          VALUES (?, ?)''', (username, password))
+            # Insert the user data into the table
+            cursor.execute('''INSERT INTO user (user, pwd) 
+                            VALUES (?, ?)''', (username, password))
 
-        # Commit the transaction and close the connection
-        conn.commit()
-        conn.close()
+            # Commit the transaction and close the connection
+            conn.commit()
+            conn.close()
 
-        # Show success message
-        messagebox.showinfo("Success", f"User {username} created successfully!")
+            # Show success message
+            messagebox.showinfo("Success", f"User {username} created successfully!")
+    except:
+        messagebox.showerror("db error","Something went wrong") 
 #frame
 frame=Frame(root,bd=5)
 #place 75% x and 50% y of display
