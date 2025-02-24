@@ -58,10 +58,6 @@ def sub(event):
         user.delete(0, END)  # Clears text
         user.config(fg="black")
 
-def reset():
-    root.quit()
-    subprocess.Popen(["python", "reset.py"])
-
 def addp(event):  # If event is not done, bring back the placeholder.
     if pwd.get() == "":
         pwd.insert(0, "Enter your Password.")
@@ -76,15 +72,33 @@ def afterlogin():
     subprocess.Popen(["python", "after_login.py"])
 
 # '''create a login frame'''
-
+#opens admin pannel
+def admin():
+    #opens admin dashboard 
+    process=subprocess.Popen(['python','doctorDash.py'])#refernces process to see if window is open
+    root.withdraw()#hide login dashboard root
+    while True:
+        status = process.poll()  # Check if the process has terminated
+        if status is not None:#check if window closed as when window running it returns none
+            root.deiconify() #show login dashboard
+            break
+#opens reset pannel
+def reset():
+    #opens admin dashboard 
+    process=subprocess.Popen(['python','reset.py'])#refernces process to see if window is open
+    root.withdraw()#hide login dashboard root
+    while True:
+        status = process.poll()  # Check if the process has terminated
+        if status is not None:#check if window closed as when window running it returns none
+            root.deiconify() #show login dashboard
+            break
+    
 def check():
     try:
         # Check for admin login first
         if user.get() == "admin" and pwd.get() == "admin123":
             messagebox.showinfo("Admin Login", "Welcome, Admin!")
-            # Run admin.py if login is correct
-            subprocess.Popen(["python", "admin.py"])
-            root.destroy()  # Close the login window
+            admin()
         else:
             conn = sqlite3.connect('hospital.db')
             cursor = conn.cursor()
