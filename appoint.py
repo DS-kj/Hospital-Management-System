@@ -114,7 +114,7 @@ def get_patients():
         for patient in patients:
             patient_menu['menu'].add_command(label=f"{patient[1]} (ID: {patient[0]})", command=lambda value=patient[0]: selected_patient.set(value))
     except:
-        messagebox.showerror("db error")    
+        messagebox.showerror("db error","Something went wrong")    
 # Frame setup
 root = Tk()
 root.title("Appointment System")
