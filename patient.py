@@ -162,7 +162,7 @@ entry_phone.grid(row=3, column=2, padx=10, pady=10)
 button_add.grid(row=0, column=4, padx=10, pady=10, sticky="w")
 button_update.grid(row=2, column=4, padx=10, pady=10, sticky="w")
 button_delete.grid(row=4, column=4, padx=10, pady=10, sticky="w")
-button_appointment.grid(row=3,column=6,padx=10,pady=10,sticky="w")
+button_appointment.grid(row=1,column=0,padx=10,pady=10,sticky="w")
 
 treeview.grid(row=0, column=3, rowspan=5, padx=10, pady=10)
 
