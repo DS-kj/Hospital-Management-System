@@ -112,7 +112,7 @@ def check():
                 admin()  # open admin panel
             else:
                 messagebox.showinfo('Success!', f'WELCOME {user.get()}, you have logged in successfully')
-                subprocess.Popen(["python", "dashbaord.py"])  # Connects to dashboard.py
+                subprocess.Popen(["python", "dashboard.py"])  # Connects to dashboard.py
                 root.destroy()  # Destroy the login window
         else:
             messagebox.showerror('OOPS!!', 'Invalid username or password!!!')
