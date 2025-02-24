@@ -14,7 +14,8 @@ a=Image.open(r'_DASHBOARD.png')
 b=a.resize((1550,800))
 c=ImageTk.PhotoImage(b)
 lbl=Label(image=c).place(relheight=1,relwidth=1)
-
+frame = Frame(root,bg="#29b5e3")
+frame.place(x=550,y=0)
 def Doctor():
     #opens doctor dashboard 
     process=subprocess.Popen(['python','doctorDash.py'])#refernces process to see if window is open
@@ -64,37 +65,31 @@ def fetch_appointments():
     """, (today_date,))  # Pass today_date to filter by today's appointments
     appointments = cursor.fetchall()
 
-    conn.close()
-    
-    return appointments
+    # Add a label on top of the frame
+    label = Label(frame, text="Today's Appointments", font=("Times New Roman", 16),bg="#29b5e3")
+    label.pack(pady=10)
 
-# Fetch today's appointments from the database
-appointments = fetch_appointments()
+    # Set up a treeview widget to display the appointments in a table format
+    tree = ttk.Treeview(frame, columns=("Id", "Patient Name", "Doctor Name", "Time"), show="headings",height=30)
+
+    # Define the column headings
+    tree.heading("Id", text="Appointment ID")
+    tree.heading("Patient Name", text="Patient Name")
+    tree.heading("Doctor Name", text="Doctor Name")
+    tree.heading("Time", text="Time")
+
+    # Insert the appointments into the treeview
+    for appointment in appointments:
+        appointment_id, patient_name, doctor_name, appointment_time = appointment
+        tree.insert("", END, values=(appointment_id, patient_name, doctor_name, appointment_time))
+
+    # Pack the treeview widget to fill the frame
+    tree.pack(padx=10, pady=10, expand=True)
+    conn.close()
+
 
 # Create a frame for the appointment list
-frame = Frame(root,bg="#29b5e3")
-frame.place(x=550,y=0)
-
-# Add a label on top of the frame
-label = Label(frame, text="Today's Appointments", font=("Times New Roman", 16),bg="#29b5e3")
-label.pack(pady=10)
-
-# Set up a treeview widget to display the appointments in a table format
-tree = ttk.Treeview(frame, columns=("Id", "Patient Name", "Doctor Name", "Time"), show="headings",height=30)
-
-# Define the column headings
-tree.heading("Id", text="Appointment ID")
-tree.heading("Patient Name", text="Patient Name")
-tree.heading("Doctor Name", text="Doctor Name")
-tree.heading("Time", text="Time")
-
-# Insert the appointments into the treeview
-for appointment in appointments:
-    appointment_id, patient_name, doctor_name, appointment_time = appointment
-    tree.insert("", END, values=(appointment_id, patient_name, doctor_name, appointment_time))
-
-# Pack the treeview widget to fill the frame
-tree.pack(padx=10, pady=10, expand=True)
+fetch_appointments()
 
 
 #Main buttons
