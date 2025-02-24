@@ -4,19 +4,21 @@ from tkinter import messagebox
 import sqlite3
 import subprocess
 
-# '''create main window root'''
-
+# Create main window root
 root = Tk()
 root.geometry('700x800+400+0')  # Window dimensions and position
 root.resizable(0, 0)  # Window can't be resized
 root.iconbitmap("icon.ico")  # Make sure the icon file is available
 
 # Setting up background image
-a = Image.open('log1.png')
-b = a.resize((700, 800))  # Resize image to fit the window
-c = ImageTk.PhotoImage(b)  # Convert to Tkinter compatible format
-l = Label(image=c)
-l.grid()  # Display background
+try:
+    a = Image.open('log1.png')
+    b = a.resize((700, 800))  # Resize image to fit the window
+    c = ImageTk.PhotoImage(b)  # Convert to Tkinter compatible format
+    l = Label(image=c)
+    l.grid()  # Display background
+except:
+    messagebox.showerror("Error", "Background image not found")
 
 # Database initialization: create table if it doesn't exist and insert admin user if needed
 def initialize_database():
@@ -32,7 +34,7 @@ def initialize_database():
         # Check if there's already an admin user in the table
         cursor.execute('SELECT * FROM user WHERE user="admin"')
         result = cursor.fetchone()
-        
+
         if result is None:
             # If no admin user, insert the default admin user
             cursor.execute('''INSERT INTO user (user, pwd) VALUES (?, ?)''', ('admin', 'admin123'))
@@ -68,54 +70,54 @@ def subp(event):  # If some event is done, remove the placeholder.
         pwd.delete(0, END)  # Clears text
         pwd.config(fg="black")
 
-def afterlogin():
-    subprocess.Popen(["python", "after_login.py"])
-
-# '''create a login frame'''
-#opens admin pannel
+#clears entry box
+def clear_entries():
+    user.delete(0, END)
+    pwd.delete(0, END)
+# Opens admin panel
 def admin():
-    #opens admin dashboard 
-    process=subprocess.Popen(['python','doctorDash.py'])#refernces process to see if window is open
-    root.withdraw()#hide login dashboard root
+    clear_entries()
+    process = subprocess.Popen(['python', 'admin.py'])  # references process to see if window is open
+    root.withdraw()  # hide login dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
-        if status is not None:#check if window closed as when window running it returns none
-            root.deiconify() #show login dashboard
+        if status is not None:  # check if window closed as when window running it returns none
+            root.deiconify()  # show login dashboard
             break
-#opens reset pannel
+
+# Opens reset panel
 def reset():
-    #opens admin dashboard 
-    process=subprocess.Popen(['python','reset.py'])#refernces process to see if window is open
-    root.withdraw()#hide login dashboard root
+    clear_entries()
+    process = subprocess.Popen(['python', 'reset.py'])  # references process to see if window is open
+    root.withdraw()  # hide login dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
-        if status is not None:#check if window closed as when window running it returns none
-            root.deiconify() #show login dashboard
+        if status is not None:  # check if window closed as when window running it returns none
+            root.deiconify()  # show login dashboard
             break
-    
+
 def check():
     try:
         # Check for admin login first
-        if user.get() == "admin" and pwd.get() == "admin123":
-            messagebox.showinfo("Admin Login", "Welcome, Admin!")
-            admin()
-        else:
-            conn = sqlite3.connect('hospital.db')
-            cursor = conn.cursor()
+        conn = sqlite3.connect('hospital.db')
+        cursor = conn.cursor()
 
-            # Check if the entered username and password match
-            cursor.execute('SELECT * FROM user WHERE user=? AND pwd=?', (user.get(), pwd.get()))
-            result = cursor.fetchone()
+        # Check if the entered username and password match
+        cursor.execute('SELECT * FROM user WHERE user=? AND pwd=?', (user.get(), pwd.get()))
+        results = cursor.fetchone()
 
-            if result:
-                messagebox.showinfo('Success!', f'WELCOME {user.get()}, you have logged in successfully')
-                subprocess.Popen(["python", "dashboard.py"])  # Connects the 'python' code named dashboard.py to this page
-                root.destroy()  # Destroy the login window
+        if results:
+            if results[0] =='admin' and results[1] == pwd.get():
+                admin()  # open admin panel
             else:
-                messagebox.showerror('OOPS!!', 'Invalid username or password!!!')
+                messagebox.showinfo('Success!', f'WELCOME {user.get()}, you have logged in successfully')
+                subprocess.Popen(["python", "dashboard.py"])  # Connects to dashboard.py
+                root.destroy()  # Destroy the login window
+        else:
+            messagebox.showerror('OOPS!!', 'Invalid username or password!!!')
 
-            conn.commit()
-            conn.close()
+        conn.commit()
+        conn.close()
 
     except sqlite3.Error as e:
         messagebox.showerror("Database Error", f"An error occurred while interacting with the database: {e}")
@@ -142,18 +144,16 @@ pwd.bind("<FocusIn>", subp)
 pwd.bind("<FocusOut>", addp)
 
 submit = Button(frame, text='Login', command=check, fg=col, font=('Times new roman', 15))
-
 btn = Button(frame, text='Reset', command=reset, fg=col, font=('Times new roman', 15), width=8, height=7)
 
 # Display the login interface
-Login.grid(row=0, column=0, columnspan=1, pady=20)
-btn.grid(row=0, column=0, columnspan=1)
+Login.grid(row=0, column=0, columnspan=2, pady=20)
 name.grid(row=1, column=0, pady=20)
 user.grid(row=1, column=1, pady=20, padx=10)
 Password.grid(row=2, column=0, pady=20)
 pwd.grid(row=2, column=1, pady=20, padx=10)
-submit.grid(row=25, column=1, columnspan=2, pady=20)
-btn.grid(row=25, column=0)
+submit.grid(row=3, column=1, columnspan=2, pady=20)
+btn.grid(row=3, column=0, padx=10)
 btn.config(fg='blue', width=5, height=1)
 
 # Run the window using the mainloop method
