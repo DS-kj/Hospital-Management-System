@@ -98,7 +98,7 @@ lab_f2.grid(row=0,column=0,columnspan=1,pady=20,padx=0)
 def fetch_data():
     conn = sqlite3.connect('hospital.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT username FROM user")
+    cursor.execute("SELECT user FROM user")
     rows = cursor.fetchall()
     for item in tree.get_children():
         tree.delete(item)
@@ -128,7 +128,7 @@ def delete_user():
     user= tree.item(selected, 'values')[1]
     conn= sqlite3.connect('hospital.db')
     cursor= conn.cursor()
-    cursor.execute("DELETE FROM user WHERE username=?", (user,))
+    cursor.execute("DELETE FROM user WHERE user=?", (user,))
     conn.commit()
     conn.close()
     messagebox.showinfo("Success", f"User {user} deleted successfully!")
