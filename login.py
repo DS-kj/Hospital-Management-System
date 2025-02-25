@@ -10,7 +10,6 @@ root.title('Hospital management System')
 root.geometry('700x800+400+0')  # Window dimensions and position
 root.resizable(0, 0)  # Window can't be resized
 root.iconbitmap("icon.ico")  # Make sure the icon file is available
-
 # Setting up background image
 try:
     a = Image.open('log1.png')
@@ -18,6 +17,7 @@ try:
     c = ImageTk.PhotoImage(b)  # Convert to Tkinter compatible format
     l = Label(image=c)
     l.grid()  # Display background
+
 except:
     messagebox.showerror("Error", "Background image not found")
 

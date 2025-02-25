@@ -8,7 +8,7 @@ from datetime import datetime
 root=Tk()
 root.title('Dashboard')
 root.iconbitmap('icon.ico')
-root.geometry('1500x750+0+0')#zero added for centering the window when it opens at first
+root.geometry('1300x750+0+0')#zero added for centering the window when it opens at first
 root.resizable(0,0)
 a=Image.open(r'_DASHBOARD.png')
 b=a.resize((1550,800))
