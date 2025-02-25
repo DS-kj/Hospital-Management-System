@@ -125,14 +125,18 @@ def delete_user():
     if not selected:
         messagebox.showwarning("Warning", "Please select a user to delete.")
         return
-    user= tree.item(selected, 'values')[1]
-    conn= sqlite3.connect('hospital.db')
-    cursor= conn.cursor()
-    cursor.execute("DELETE FROM user WHERE user=?", (user,))
-    conn.commit()
-    conn.close()
-    messagebox.showinfo("Success", f"User {user} deleted successfully!")
-    fetch_data()
+    user= tree.item(selected, 'values')[1]  # Get username from selected row
+    if user=='admin':
+         messagebox.showwarning("Warning", "Can't delete the admin to delete.")
+    else:
+        conn= sqlite3.connect('hospital.db')
+        cursor= conn.cursor()
+        cursor.execute("DELETE FROM user WHERE user=?", (user,))
+        conn.commit()
+        conn.close()
+
+        messagebox.showinfo("Success", f"User {user} deleted successfully!")
+        fetch_data()  # Refresh table
 
 btn_delete = Button(frame2, text="Delete User", command=delete_user, bg="red", fg="white")
 btn_delete.grid(row=2, column=0, pady=10, padx=5,sticky='e')
