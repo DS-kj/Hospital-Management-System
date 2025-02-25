@@ -23,11 +23,11 @@ l.grid()
 #authentication
 def admi():
     if user.get()=="Enter Username." and pwd.get()=="Enter Password.":
-        messagebox.showinfo('ERROR',"Enter Username and Password")
+        messagebox.showwarning('ERROR',"Enter Username and Password")
     elif user.get()=="Enter Username."or user.get()=="" and pwd.get()==pwd.get():
-        messagebox.showinfo('ERRORR',"Enter Username")
+        messagebox.showwarning('ERRORR',"Enter Username")
     elif user.get()==user.get() and pwd.get()=='Enter Password.' or pwd.get()=="":
-        messagebox.showinfo('ERRORR',"Enter Password")
+        messagebox.showwarning('ERRORR',"Enter Password")
     else:
         username = user.get()
         password = pwd.get()
