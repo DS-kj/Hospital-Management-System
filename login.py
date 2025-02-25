@@ -52,7 +52,7 @@ initialize_database()
 
 # Define the functions for the login page
 def add(event):  # If event is not done, bring back the placeholder.
-    if user.get() == "":
+    if user.get() =="":
         user.insert(0, "Enter your Username.")
         user.config(fg="gray")
 
@@ -69,7 +69,7 @@ def addp(event):  # If event is not done, bring back the placeholder.
 def subp(event):  # If some event is done, remove the placeholder.
     if pwd.get() == "Enter your Password.":
         pwd.delete(0, END)  # Clears text
-        pwd.config(fg="black")
+        pwd.config(fg="black",show="*")
 
 #clears entry box
 def clear_entries():
@@ -139,7 +139,7 @@ user.bind("<FocusIn>", sub)  # focusin is an event and sub is the function
 user.bind("<FocusOut>", add)  # focusout is an event and add is the function
 
 Password = Label(frame, text="Password", fg=col, font=('Times new roman', 15))
-pwd = Entry(frame, show='*', font=('Times new roman', 15), fg="gray")
+pwd = Entry(frame, font=('Times new roman', 15), fg="gray")
 pwd.insert(0, "Enter your Password.")  # initial placeholder
 pwd.bind("<FocusIn>", subp)
 pwd.bind("<FocusOut>", addp)
