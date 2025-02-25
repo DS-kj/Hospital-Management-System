@@ -9,6 +9,7 @@ import subprocess
 
 root = Tk()
 root.geometry('900x800+400+0')
+root.title('admin pannel')
 root.resizable(0,0)
 root.iconbitmap("icon.ico")
 

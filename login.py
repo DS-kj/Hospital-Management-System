@@ -131,6 +131,8 @@ frame.place(x=350, y=200)  # Position the frame
 
 # Labels, Entry fields, and Button
 col = '#000000'
+
+title = Label(frame, text="Hospital Management System", fg=col, font=('Times new roman', 30))
 Login = Label(frame, text="Sign in", fg=col, font=('Times new roman', 30))
 name = Label(frame, text="Username", fg=col, font=('Times new roman', 15))
 user = Entry(frame, font=('Times new roman', 15), fg="gray")
@@ -148,13 +150,14 @@ submit = Button(frame, text='Login', command=check, fg=col, font=('Times new rom
 btn = Button(frame, text='Reset', command=reset, fg=col, font=('Times new roman', 15), width=8, height=7)
 
 # Display the login interface
-Login.grid(row=0, column=0, columnspan=2, pady=20)
-name.grid(row=1, column=0, pady=20)
-user.grid(row=1, column=1, pady=20, padx=10)
-Password.grid(row=2, column=0, pady=20)
-pwd.grid(row=2, column=1, pady=20, padx=10)
-submit.grid(row=3, column=1, columnspan=2, pady=20)
-btn.grid(row=3, column=0, padx=10)
+title.grid(row=0, column=0, columnspan=2, pady=20)
+Login.grid(row=1, column=0, columnspan=2, pady=20)
+name.grid(row=2, column=0, pady=20)
+user.grid(row=2, column=1, pady=20, padx=10)
+Password.grid(row=3, column=0, pady=20)
+pwd.grid(row=3, column=1, pady=20, padx=10)
+submit.grid(row=4, column=1, columnspan=2, pady=20)
+btn.grid(row=4, column=0, padx=10)
 btn.config(fg='blue', width=5, height=1)
 
 # Run the window using the mainloop method
