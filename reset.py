@@ -39,7 +39,7 @@ def addd(event):#If event is not done bring back the place holder.
 def subb(event):
     if old.get()=="Enter your old Password.":
         old.delete(0,END)#Clears text
-        old.config(fg="black")
+        old.config(fg="black",show='*')
 def addp(event):#If event is not done bring back the place holder.
     if pwd.get()=="":
         pwd.insert(0,"Enter your new Password.")
@@ -47,15 +47,15 @@ def addp(event):#If event is not done bring back the place holder.
 def subp(event):#If some event is done remove the place holder
     if pwd.get()=="Enter your new Password.":
         pwd.delete(0,END)#Clears text
-        pwd.config(fg="black")
+        pwd.config(fg="black",show='*')
 def addpp(event):#If event is not done bring back the place holder.
     if pwd.get()=="":
         pwd.insert(0,"Enter your new Password.")
-        pwd.config(fg="gray")
+        pwd.config(fg="gray",)
 def subpp(event):#If some event is done remove the place holder
     if pwd.get()=="Enter your new Password.":
         pwd.delete(0,END)#Clears text
-        pwd.config(fg="black")
+        pwd.config(fg="black",show='*')
 
 #frame
 frame=Frame(root,bd=5)
