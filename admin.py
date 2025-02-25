@@ -37,9 +37,9 @@ def admi():
             cursor = conn.cursor()
             cursor.execute('''CREATE TABLE IF NOT EXISTS user (
                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                username TEXT NOT NULL,
-                                password TEXT NOT NULL)''')
-            cursor.execute('''INSERT INTO user (username, password) 
+                                user TEXT NOT NULL,
+                                pwd TEXT NOT NULL)''')
+            cursor.execute('''INSERT INTO user (user, pwd) 
                               VALUES (?, ?)''', (username, password))
             fetch_data()
             conn.commit()

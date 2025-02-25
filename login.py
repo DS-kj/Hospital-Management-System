@@ -79,7 +79,7 @@ def clear_entries():
 def admin():
     clear_entries()
     process = subprocess.Popen(['python', 'admin.py'])  # references process to see if window is open
-    root.withdraw()  # hide login dashboard root
+    root.destroy()  # hide login dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
         if status is not None:  # check if window closed as when window running it returns none
