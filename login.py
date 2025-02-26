@@ -80,22 +80,22 @@ def admin():
     clear_entries()
     messagebox.showinfo("admin","Welcome Admin.")
     process = subprocess.Popen(['python', 'admin.py'])  # references process to see if window is open
-    root.withdraw()  # hide login dashboard root
+    root.destroy()  # hide login dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
         if status is not None:  # check if window closed as when window running it returns none
-            root.deiconify()  # show login dashboard
+            subprocess.Popen(['python', 'login.py']) # show login dashboard
             break
 
 # Opens reset panel
 def reset():
     clear_entries()
     process = subprocess.Popen(['python', 'reset.py'])  # references process to see if window is open
-    root.withdraw()  # hide login dashboard root
+    root.destroy()  # hide login dashboard root
     while True:
         status = process.poll()  # Check if the process has terminated
         if status is not None:  # check if window closed as when window running it returns none
-            root.deiconify()  # show login dashboard
+            subprocess.Popen(['python', 'login.py'])  # show login dashboard
             break
 
 def check():

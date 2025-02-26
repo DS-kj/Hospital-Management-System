@@ -87,7 +87,7 @@ def Appoint():
     while True:
         status = process.poll()  # Check if the process has terminated
         if status is not None:# check if window closed as when window running it returns none
-            subprocess.Popen(['python','dashboard.py'])# main dashboard
+            subprocess.Popen(['python','patient.py'])# main dashboard
             break
 # Function to clear the entry fields
 def clear_entries():
