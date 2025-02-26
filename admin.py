@@ -39,7 +39,7 @@ def admi():
                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                                 username TEXT NOT NULL,
                                 password TEXT NOT NULL)''')
-            cursor.execute('''INSERT INTO user (username, password) 
+            cursor.execute('''INSERT INTO user (user, pwd) 
                               VALUES (?, ?)''', (username, password))
             fetch_data()
             conn.commit()

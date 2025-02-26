@@ -78,6 +78,7 @@ def clear_entries():
 # Opens admin panel
 def admin():
     clear_entries()
+    messagebox.showinfo("admin","Welcome Admin.")
     process = subprocess.Popen(['python', 'admin.py'])  # references process to see if window is open
     root.withdraw()  # hide login dashboard root
     while True:
@@ -98,32 +99,39 @@ def reset():
             break
 
 def check():
-    try:
-        # Check for admin login first
-        conn = sqlite3.connect('hospital.db')
-        cursor = conn.cursor()
+    if user.get()=="Enter your Username."or user.get()==""and pwd.get()=="Enter your Password."or pwd.get()=="":
+        messagebox.showwarning('ERROR',"Enter Username and Password")
+    elif user.get()=="Enter your Username."or user.get()=="" and pwd.get()==pwd.get():
+        messagebox.showwarning('ERRORR',"Enter Username")
+    elif user.get()==user.get() and pwd.get()=='Enter your Password.' or pwd.get()=="":
+        messagebox.showwarning('ERRORR',"Enter Password")
+    else:
+        try:
+            # Check for admin login first
+            conn = sqlite3.connect('hospital.db')
+            cursor = conn.cursor()
 
-        # Check if the entered username and password match
-        cursor.execute('SELECT * FROM user WHERE user=? AND pwd=?', (user.get(), pwd.get()))
-        results = cursor.fetchone()
+            # Check if the entered username and password match
+            cursor.execute('SELECT * FROM user WHERE user=? AND pwd=?', (user.get(), pwd.get()))
+            results = cursor.fetchone()
 
-        if results:
-            if results[0] =='admin' and results[1] == pwd.get():
-                admin()  # open admin panel
+            if results:
+                if results[0] =='admin' and results[1] == pwd.get():
+                    admin()  # open admin panel
+                else:
+                    messagebox.showinfo('Success!', f'WELCOME {user.get()}, you have logged in successfully')
+                    subprocess.Popen(["python", "dashboard.py"])  # Connects to dashboard.py
+                    root.destroy()  # Destroy the login window
             else:
-                messagebox.showinfo('Success!', f'WELCOME {user.get()}, you have logged in successfully')
-                subprocess.Popen(["python", "dashboard.py"])  # Connects to dashboard.py
-                root.destroy()  # Destroy the login window
-        else:
-            messagebox.showerror('OOPS!!', 'Invalid username or password!!!')
+                messagebox.showerror('OOPS!!', 'Invalid username or password!!!')
 
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
 
-    except sqlite3.Error as e:
-        messagebox.showerror("Database Error", f"An error occurred while interacting with the database: {e}")
-    except Exception as e:
-        messagebox.showerror("Error", f"An unexpected error occurred: {e}")
+        except sqlite3.Error as e:
+            messagebox.showerror("Database Error",f"Error occurred with the database: {e}")
+        except Exception as e:
+            messagebox.showerror("Error", f"An unexpected error occurred: {e}")
 
 # Frame for login UI
 frame = Frame(root, bd=5)

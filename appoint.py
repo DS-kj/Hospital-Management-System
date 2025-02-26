@@ -179,7 +179,7 @@ label_time = Label(frame_left, text="Appointment Time (HH:MM):",bg=left_col)
 label_time.pack(pady=10)
 
 # Create the Time Picker 
-time_slots = [f"{h if h <= 12 else h - 12}:00 {'AM' if h < 12 else 'PM'}" for h in range(9, 18)]  # 9 AM - 5 PM
+time_slots = [f"{h if h <= 12 else h - 12}:00 {'AM' if h < 12 else 'PM'}" for h in range(9, 18)] # 9 AM - 5 PM
 entry_time = ttk.Combobox(frame_left, width=12, values=time_slots)
 entry_time.pack(pady=10)  # Position for time picker
 entry_time.set("9:00 AM")  # Default time

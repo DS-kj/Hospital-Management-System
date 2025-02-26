@@ -45,8 +45,7 @@ def fetch_appointments():
     today_date = datetime.now().strftime('%Y-%m-%d')
     
     # Query to fetch appointments that are today, including doctor name, and time, sorted by appointment time
-    cursor.execute("""
-    SELECT a.id, p.name AS patient_name, d.name AS doctor_name, a.appointment_time 
+    cursor.execute("""SELECT a.id, p.name AS patient_name, d.name AS doctor_name, a.appointment_time 
     FROM appointments a
     JOIN doctors d ON a.doctor_id = d.id
     JOIN patients p ON a.patient_id = p.id
